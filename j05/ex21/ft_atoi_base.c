@@ -16,9 +16,7 @@ int		ft_get_char_rank(char c, char *base)
 	
 	i = 0;
 	while (base[i] && c != base[i])
-	{
 		i++;
-	}
 	return (i);
 }
 
@@ -30,12 +28,12 @@ int		ft_check_str(char *str, char *base)
 	i = 0;
 	if (str[i] == '+' || str[i] == '-')
 		i++;
-	if (!str[i])
+	if (str[i] == '\0')
 		return (0);
-	while (str[i])
+	while (str[i] != '\0')
 	{
 		j = 0;
-		while (str[i] != base[j] && str[j])
+		while (str[i] != base[j] && str[i])
 			j++;
 		if (str[i] == base[j])
 			i++;
@@ -51,7 +49,7 @@ int		ft_check_base(char *base)
 	int j;
 
 	i = 0;
-	if (!base[i] || !base[i + 1])
+	if (base[i] == '\0' || base[i + 1] == '\0')
 		return (0);
 	while (base[i])
 	{
