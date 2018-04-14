@@ -4,8 +4,7 @@ void	*ft_memalloc(size_t size)
 {
 	void	*mem;
 
-	mem = malloc(size_t size);
-	if (mem == NULL)
+	if (!(mem = malloc(size_t size)))
 		return (NULL);
 	ft_memset(mem, 0, size);
 	return (mem);
