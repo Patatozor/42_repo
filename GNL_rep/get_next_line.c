@@ -6,25 +6,11 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/21 23:41:56 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 02:00:01 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/10/22 05:49:05 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void			ft_print_lst(t_list **file)
-{
-	t_list	*tmp;
-
-	tmp = *file;
-	while (tmp)
-	{
-		ft_putnbr(tmp->content_size);
-		ft_putchar('\n');
-		ft_putendl(tmp->content);
-		tmp = tmp->next;
-	}
-}
 
 static t_list	*get_fd_file(t_list **file, int fd)
 {
@@ -41,6 +27,39 @@ static t_list	*get_fd_file(t_list **file, int fd)
 	ft_lstadd(file, tmp);
 	tmp = *file;
 	return (tmp);
+}
+
+char			*cut_untilc(char *dst, t_list *src, char c)
+{
+	size_t	i;
+	size_t	j;
+	size_t	k;
+	char	*temp;
+
+	i = ft_strlenuntilc(src->content, c);
+	j = ft_strlen(src->content);
+	if (!(dst = malloc(sizeof(char) * i))
+			|| !(temp = malloc(sizeof(char) * (j - i))))
+		return (NULL);
+	dst = ft_strcpyuntilc(dst, src->content, c);
+	k = 0;
+	while (k < j - i)
+		temp[k++] = ((char *)src->content)[++i];
+	temp[k] = '\0';
+	src->content = temp;
+	free(temp);
+	return (dst);
+}
+
+void			print_and_close(char *str, int fd)
+{
+	if (fd >= 0 && EOF_PRINT == 1)
+	{
+		close(fd);
+		ft_putendl("END OF FILE");
+	}
+	if (str && PRINT == 1)
+		ft_putendl(str);
 }
 
 int				get_next_line(const int fd, char **line)
@@ -62,7 +81,12 @@ int				get_next_line(const int fd, char **line)
 		if (ft_strchr(buff, CHAR_STOP))
 			break ;
 	}
-	*line = ft_strcpyuntilc(*line, fd_file->content, CHAR_STOP);
-	free(fd_file->content);
-	return (1);
+	*line = cut_untilc(*line, fd_file, CHAR_STOP);
+	if (ft_strlen(*line))
+	{
+		print_and_close(*line, -1);
+		return (1);
+	}
+	print_and_close(NULL, fd);
+	return (0);
 }

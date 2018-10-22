@@ -6,7 +6,7 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 02:03:23 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/10/22 05:48:52 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ int	main(void)
 	int		fd;
 
 	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	if (get_next_line(fd, &ret))
+		ft_putendl(ret);
+	if (get_next_line(fd, &ret))
+		ft_putendl(ret);
+	if (get_next_line(fd, &ret))
+		ft_putendl(ret);
+	if (get_next_line(fd, &ret))
+		ft_putendl(ret);
+	if (get_next_line(fd, &ret))
+		ft_putendl(ret);
 }

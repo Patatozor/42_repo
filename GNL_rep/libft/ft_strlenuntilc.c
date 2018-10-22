@@ -6,7 +6,7 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 00:59:21 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:01:35 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/10/22 05:35:48 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlenuntilc(const char *s, char c)
 	size_t	i;
 
 	i = 0;
-	while(s[i] && s[i] != c)
+	while (s[i] && s[i] != c)
 		i++;
 	return (i);
 }

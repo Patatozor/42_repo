@@ -6,7 +6,7 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 17:28:37 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 02:00:03 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/10/22 05:35:30 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ size_t				ft_strlen(const char *s);
 size_t				ft_strlenuntilc(const char *s, char c);
 char				*ft_strdup(const char *s1);
 char				*ft_strcpy(char *dst, const char *src);
-char				*ft_strcpyuntilc(char *dst,  const char *src, char c);
+char				*ft_strcpyuntilc(char *dst, const char *src, char c);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
 char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strncat(char *s1, const char *s2, size_t n);
