@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/11 14:47:43 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/18 15:00:17 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	*ret;
-	int		fd;
+	char		*dest;
+	const char	*source;
 
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	dest = dst;
+	source = src;
+	if (src < dst)
+	{
+		while (len--)
+			dest[len] = source[len];
+	}
+	else
+		ft_memcpy(dst, src, len);
+	return (dst);
 }

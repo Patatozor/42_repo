@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstaddback.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/26 05:31:51 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/26 06:13:49 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+void	ft_lstaddback(t_list **alst, t_list *new)
 {
-	char	*ret;
-	int		fd;
+	t_list	*list;
 
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	if (!alst || !new)
+		return ;
+	list = *alst;
+	while (list->next)
+		list = list->next;
+	list->next = new;
 }

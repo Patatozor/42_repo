@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/16 13:58:53 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/16 14:35:53 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+void	*ft_memalloc(size_t size)
 {
-	char	*ret;
-	int		fd;
+	void	*mem;
 
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	if (!(mem = malloc(sizeof(size_t) * size)))
+		return (NULL);
+	ft_memset(mem, 0, size);
+	return (mem);
 }

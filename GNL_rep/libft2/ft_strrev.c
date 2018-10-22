@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/24 17:48:03 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/24 18:02:25 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+char	*ft_strrev(char const *s)
 {
-	char	*ret;
-	int		fd;
+	size_t	i;
+	size_t	len;
+	char	*str;
+	char	buff;
 
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	if (s == NULL)
+		return (NULL);
+	i = 0;
+	len = ft_strlen(s);
+	if (len <= 1)
+		return ((char *)s);
+	if (!(str = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	len--;
+	ft_strcpy(str, s);
+	while (i < len)
+	{
+		buff = str[i];
+		str[i++] = str[len];
+		str[len--] = buff;
+	}
+	return (str);
 }

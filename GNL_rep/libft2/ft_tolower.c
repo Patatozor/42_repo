@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/16 13:57:56 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/26 06:27:47 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+int	ft_tolower(int c)
 {
-	char	*ret;
-	int		fd;
-
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	if (c >= 'A' && c <= 'Z')
+		return ((int)(c + 32));
+	return (c);
 }

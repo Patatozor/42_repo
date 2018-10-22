@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/17 15:02:58 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/17 16:29:49 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*ret;
-	int		fd;
+	unsigned int	nb;
 
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	nb = (n < 0) ? -n : n;
+	if (n < 0)
+		ft_putchar_fd('-', fd);
+	if (nb >= 10)
+		ft_putnbr_fd(nb / 10, fd);
+	(nb >= 10) ? ft_putchar_fd(nb % 10 + '0', fd) : ft_putchar_fd(nb + '0', fd);
 }

@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/11 16:01:13 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/18 14:57:08 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+char	*ft_strdup(const char *s1)
 {
-	char	*ret;
-	int		fd;
+	size_t	len;
+	size_t	i;
+	char	*dup;
 
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	len = ft_strlen(s1);
+	if (!(dup = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = -1;
+	while (++i < len)
+		dup[i] = s1[i];
+	dup[i] = '\0';
+	return (dup);
 }

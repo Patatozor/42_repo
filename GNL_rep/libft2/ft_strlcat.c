@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/11 17:33:13 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/16 13:17:49 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	char	*ret;
-	int		fd;
+	size_t	i;
+	size_t	dest_len;
+	size_t	src_len;
 
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	i = 0;
+	dest_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
+	if (dest_len >= size)
+		return (src_len + size);
+	while ((i < (size - dest_len - 1)) && src[i] != '\0')
+	{
+		dst[dest_len + i] = src[i];
+		i++;
+	}
+	dst[dest_len + i] = '\0';
+	return (dest_len + src_len);
 }

@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 00:32:17 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/03 02:21:11 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/10/21 23:41:56 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/10/22 02:00:01 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static t_list	*get_correct_file(t_list **file, int fd)
+void			ft_print_lst(t_list **file)
 {
-	t_list				*tmp;
+	t_list	*tmp;
+
+	tmp = *file;
+	while (tmp)
+	{
+		ft_putnbr(tmp->content_size);
+		ft_putchar('\n');
+		ft_putendl(tmp->content);
+		tmp = tmp->next;
+	}
+}
+
+static t_list	*get_fd_file(t_list **file, int fd)
+{
+	t_list	*tmp;
 
 	tmp = *file;
 	while (tmp)
@@ -23,7 +37,7 @@ static t_list	*get_correct_file(t_list **file, int fd)
 			return (tmp);
 		tmp = tmp->next;
 	}
-	tmp = ft_lstnew(STR_STOP, fd);
+	tmp = ft_lstnew("\0", fd);
 	ft_lstadd(file, tmp);
 	tmp = *file;
 	return (tmp);
@@ -31,28 +45,24 @@ static t_list	*get_correct_file(t_list **file, int fd)
 
 int				get_next_line(const int fd, char **line)
 {
-	char				buf[BUFF_SIZE + 1];
-	static t_list		*file;
-	int					ret;
-	t_list				*curr;
+	static t_list	*file;
+	t_list			*fd_file;
+	char			buff[BUFF_SIZE + 1];
+	int				ret;
 
-	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
+	if (fd < 0 || line == NULL || read(fd, buff, 0) < 0)
 		return (-1);
-	curr = get_correct_file(&file, fd);
-	if (!(*line = ft_strnew(1)))
-		return (-1);
-	while ((ret = read(fd, buf, BUFF_SIZE)))
+	fd_file = get_fd_file(&file, fd);
+	*line = NULL;
+	while ((ret = read(fd, buff, BUFF_SIZE)))
 	{
-		buf[ret] = '\0';
-		if (!(curr->content = ft_strjoin(curr->content, buf)))
+		buff[ret] = '\0';
+		if (!(fd_file->content = ft_strjoin(fd_file->content, buff)))
 			return (-1);
-		if (ft_strchr(buf, '\n'))
+		if (ft_strchr(buff, CHAR_STOP))
 			break ;
 	}
-	if (ret < BUFF_SIZE && !ft_strlen(curr->content))
-		return (0);
-	*line = ft_strcopyuntil(curr->content, CHAR_STOP);
-	(i < (int)ft_strlen(curr->content))
-		? curr->content += (i + 1) : ft_strclr(curr->content);
+	*line = ft_strcpyuntilc(*line, fd_file->content, CHAR_STOP);
+	free(fd_file->content);
 	return (1);
 }

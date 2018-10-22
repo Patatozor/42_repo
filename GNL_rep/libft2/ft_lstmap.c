@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/17 15:38:20 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/26 06:18:07 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f) (t_list *elem))
 {
-	char	*ret;
-	int		fd;
+	t_list	*new;
+	t_list	*list;
 
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	if (!lst || !f)
+		return (NULL);
+	if (!(list = f(lst)))
+	{
+		free(list);
+		return (NULL);
+	}
+	new = list;
+	while (lst->next)
+	{
+		lst = lst->next;
+		if (!(list = f(lst)))
+		{
+			free(list);
+			return (NULL);
+		}
+		ft_lstaddback(&new, list);
+	}
+	return (new);
 }

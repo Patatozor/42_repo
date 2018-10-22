@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strtolower.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 01:47:02 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/04/26 06:18:28 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/04/26 06:23:56 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
+#include "libft.h"
 
-int	main(void)
+char	*ft_strtolower(char const *s)
 {
-	char	*ret;
-	int		fd;
+	char	*str;
+	size_t	len;
 
-	fd = open("test", O_RDONLY);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	get_next_line(fd, &ret);
-	ft_putstr(ret);
-	close(fd);
+	if (!s)
+		return (NULL);
+	if (!*s)
+		return ((char *)s);
+	len = ft_strlen(s);
+	if (!(str = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	str[len] = '\0';
+	while (len--)
+	{
+		if (s[len] >= 'A' && s[len] <= 'Z')
+			str[len] = s[len] + 32;
+		else
+			str[len] = s[len];
+	}
+	return (str);
 }
