@@ -14,8 +14,8 @@
 # define GET_NEXT_LINE_H
 # include "libft/libft.h"
 
-# define BUFF_SIZE 1
-# define EOF_PRINT 0
+# define BUFF_SIZE 32
+# define EOF_PRINT 1
 # define PRINT 0
 # define CHAR_STOP '\n'
 

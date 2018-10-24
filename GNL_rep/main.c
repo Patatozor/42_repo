@@ -12,6 +12,7 @@
 
 #include "get_next_line.h"
 #include <fcntl.h>
+#include <stdio.h>
 
 int	main(void)
 {
@@ -19,14 +20,6 @@ int	main(void)
 	int		fd;
 
 	fd = open("test", O_RDONLY);
-	if (get_next_line(fd, &ret))
-		ft_putendl(ret);
-	if (get_next_line(fd, &ret))
-		ft_putendl(ret);
-	if (get_next_line(fd, &ret))
-		ft_putendl(ret);
-	if (get_next_line(fd, &ret))
-		ft_putendl(ret);
-	if (get_next_line(fd, &ret))
+	while (get_next_line(fd, &ret)) 
 		ft_putendl(ret);
 }

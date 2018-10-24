@@ -17,8 +17,6 @@ char	*ft_strcpyuntilc(char *dst, const char *src, char c)
 	size_t	i;
 
 	i = ft_strlenuntilc(src, c);
-	if (!(dst = malloc(sizeof(char) * i)))
-		return (NULL);
 	dst[i] = '\0';
 	dst = ft_strncpy(dst, src, i);
 	return (dst);

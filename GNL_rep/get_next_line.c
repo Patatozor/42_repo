@@ -33,21 +33,24 @@ char			*cut_untilc(char *dst, t_list *src, char c)
 {
 	size_t	i;
 	size_t	j;
-	size_t	k;
 	char	*temp;
 
 	i = ft_strlenuntilc(src->content, c);
 	j = ft_strlen(src->content);
-	if (!(dst = malloc(sizeof(char) * i))
-			|| !(temp = malloc(sizeof(char) * (j - i))))
+	if (!(dst = malloc(sizeof(char) * i + 1))
+			|| !(temp = malloc(sizeof(char) * (j - i + 1))))
 		return (NULL);
-	dst = ft_strcpyuntilc(dst, src->content, c);
-	k = 0;
-	while (k < j - i)
-		temp[k++] = ((char *)src->content)[++i];
-	temp[k] = '\0';
-	src->content = temp;
-	free(temp);
+	if (i == 0)
+		dst[0] = '\0';
+	else
+	{
+		dst = ft_strcpyuntilc(dst, src->content, c);
+		temp = src->content + i;
+		if (*temp == c)
+			temp++;
+		temp[j - i] = '\0';
+		src->content = temp;
+	}
 	return (dst);
 }
 
@@ -72,7 +75,6 @@ int				get_next_line(const int fd, char **line)
 	if (fd < 0 || line == NULL || read(fd, buff, 0) < 0)
 		return (-1);
 	fd_file = get_fd_file(&file, fd);
-	*line = NULL;
 	while ((ret = read(fd, buff, BUFF_SIZE)))
 	{
 		buff[ret] = '\0';
@@ -82,11 +84,11 @@ int				get_next_line(const int fd, char **line)
 			break ;
 	}
 	*line = cut_untilc(*line, fd_file, CHAR_STOP);
-	if (ft_strlen(*line))
+	if (!ft_strlen(fd_file->content) && ret < BUFF_SIZE)
 	{
-		print_and_close(*line, -1);
-		return (1);
+		print_and_close(NULL, fd);
+		return (0);
 	}
-	print_and_close(NULL, fd);
-	return (0);
+	print_and_close(*line, -1);
+	return (1);
 }
