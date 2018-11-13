@@ -6,7 +6,7 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/21 23:41:56 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 05:49:05 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/11/13 18:40:02 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,31 @@ char			*cut_untilc(char *dst, t_list *src, char c)
 			|| !(temp = malloc(sizeof(char) * (j - i + 1))))
 		return (NULL);
 	if (i == 0)
+	{
 		dst[0] = '\0';
+		src->content += 2;
+	}
 	else
 	{
 		dst = ft_strcpyuntilc(dst, src->content, c);
-		temp = src->content + i;
-		if (*temp == c)
-			temp++;
-		temp[j - i] = '\0';
+		temp = ft_strcpy(temp, src->content + i);
+		if (SKP_BLK == 1)
+		{
+			while (*temp == c)
+				temp++;
+		}
+		else
+		{
+			if (*temp == c)
+				temp += 1;
+		}
 		src->content = temp;
 	}
 	return (dst);
 }
 
-void			print_and_close(char *str, int fd)
+void			print_and_close(char *str)
 {
-	if (fd >= 0 && EOF_PRINT == 1)
-	{
-		close(fd);
-		ft_putendl("END OF FILE");
-	}
 	if (str && PRINT == 1)
 		ft_putendl(str);
 }
@@ -69,10 +74,11 @@ int				get_next_line(const int fd, char **line)
 {
 	static t_list	*file;
 	t_list			*fd_file;
-	char			buff[BUFF_SIZE + 1];
+	char			*buff;
 	int				ret;
 
-	if (fd < 0 || line == NULL || read(fd, buff, 0) < 0)
+	if (!(buff = malloc(sizeof(char) * (BUFF_SIZE + 1))) ||
+			fd < 0 || line == NULL || read(fd, buff, 0) < 0)
 		return (-1);
 	fd_file = get_fd_file(&file, fd);
 	while ((ret = read(fd, buff, BUFF_SIZE)))
@@ -84,11 +90,8 @@ int				get_next_line(const int fd, char **line)
 			break ;
 	}
 	*line = cut_untilc(*line, fd_file, CHAR_STOP);
-	if (!ft_strlen(fd_file->content) && ret < BUFF_SIZE)
-	{
-		print_and_close(NULL, fd);
-		return (0);
-	}
-	print_and_close(*line, -1);
+	if (!ft_strlen(fd_file->content) && ret == 0)
+			return (0);
+	print_and_close(*line);
 	return (1);
 }

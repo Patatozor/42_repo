@@ -6,7 +6,7 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 02:00:28 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/10/22 05:48:52 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/11/13 18:16:59 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(void)
 	int		fd;
 
 	fd = open("test", O_RDONLY);
-	while (get_next_line(fd, &ret)) 
+	while (get_next_line(fd, &ret))
 		ft_putendl(ret);
+	return (0);
 }

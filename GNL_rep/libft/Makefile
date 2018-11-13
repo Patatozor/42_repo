@@ -6,7 +6,7 @@
 #    By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/17 16:02:35 by rfumeron          #+#    #+#              #
-#    Updated: 2018/10/22 01:17:11 by rfumeron         ###   ########.fr        #
+#    Updated: 2018/11/13 17:11:35 by rfumeron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	:=	libft.a
 # directories :
 SRCDIR	:=	.
 OBJDIR	:=	.
-INCDIR	:=	.
+INCDIR	:=	includes/
 CC		:=	clang
 CFLAGS	:= 	-Werror -Wall -Wextra -I$(INCDIR)
 RM		:=	/bin/rm -f
