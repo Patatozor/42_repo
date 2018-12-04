@@ -6,7 +6,7 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 01:51:43 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/11/29 17:58:44 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/12/04 15:00:35 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "libft.h"
 
 # define BUFF_SIZE 32
-# define PRINT 0
 # define SKIP_BLANK 0
 # define CHAR_STOP '\n'
 # define CONT(x) ((t_file *)((x->content)))->cont
@@ -28,5 +27,5 @@ typedef struct	s_file
 	char		*temp;
 }				t_file;
 
-int			get_next_line(const int fd, char **line);
+int				get_next_line(const int fd, char **line);
 #endif

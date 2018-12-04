@@ -6,7 +6,7 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/21 23:41:56 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/11/29 17:58:47 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/12/04 14:55:02 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static t_list	*get_fd_file(t_list **files, int fd)
 {
-	t_list	*tmp;
-	t_file	f;
+	t_list			*tmp;
+	t_file			f;
 
 	tmp = *files;
 	while (tmp)
@@ -31,6 +31,33 @@ static t_list	*get_fd_file(t_list **files, int fd)
 	return (*files);
 }
 
+char			*get_line(char **content)
+{
+	char			*line;
+	size_t			len;
+
+	if (ft_strchr(*content, CHAR_STOP))
+	{
+		len = ft_strchr(*content, CHAR_STOP) - *content;
+		line = ft_strncpy(ft_strnew(len), *content, len);
+		*content += len;
+		if (SKIP_BLANK == 1)
+		{
+			while (**content == CHAR_STOP)
+				*content += 1;
+		}
+		else
+			*content += 1;
+	}
+	else
+	{
+		len = ft_strlen(*content);
+		line = ft_strncpy(ft_strnew(len), *content, len);
+		*content += len;
+	}
+	return (line);
+}
+
 int				get_next_line(const int fd, char **line)
 {
 	static t_list	*files;
@@ -40,20 +67,20 @@ int				get_next_line(const int fd, char **line)
 
 	if (fd < 0 || line == NULL || read(fd, buff, 0) < 0 || BUFF_SIZE < 1)
 		return (-1);
-	file = get_fd_file(&file, fd);
+	file = get_fd_file(&files, fd);
 	while ((ret = read(fd, buff, BUFF_SIZE)))
 	{
 		buff[ret] = '\0';
 		if (!(CONT(file) = ft_strjoin(CONT(file), buff)))
 			return (-1);
-		ft_strdel(&(TEMP(file));
+		ft_strdel(&(TEMP(file)));
 		TEMP(file) = CONT(file);
 		if (ft_strchr(CONT(file), CHAR_STOP))
 			break ;
 	}
-//	if (PRINT == 1)
-//		ft_putendl(*line);
 	if (ret < BUFF_SIZE && !ft_strlen(CONT(file)))
 		return (0);
+	if (!(*line = get_line(&CONT(file))))
+		return (-1);
 	return (1);
 }
