@@ -6,7 +6,7 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 16:15:56 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/12/07 18:50:56 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/12/12 15:33:55 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ int	main(int ac, char **av)
 		printf("x: %d y: %d h: %d \n", c->x, c->y, c->h);
 		p = p->next;
 	}
+	while (1 == 1)
+		;
 	return (0);
 }

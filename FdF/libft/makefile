@@ -6,7 +6,7 @@
 #    By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/17 16:02:35 by rfumeron          #+#    #+#              #
-#    Updated: 2018/12/07 14:18:59 by rfumeron         ###   ########.fr        #
+#    Updated: 2018/12/12 16:12:06 by rfumeron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC	:=	ft_atoi.c ft_isprint.c ft_lstmap.c ft_memcpy.c ft_putendl.c \
 		ft_tolower.c ft_isalpha.c ft_lstdel.c ft_memset.c ft_putnbr_fd.c \
 		ft_strcmp.c ft_striteri.c ft_strncat.c ft_strrchr.c ft_toupper.c \
 		ft_isascii.c ft_lstdelone.c ft_memchr.c ft_putchar.c ft_putstr.c \
-		ft_strcpy.c ft_strjoin.c ft_strjoinfree.c ft_strncmp.c ft_strsplit.c \
+		ft_strcpy.c ft_strjoin.c ft_strjoinfree.c ft_strncmp.c ft_strsplit2.c \
 		ft_isdigit.c ft_lstiter.c ft_memcmp.c ft_putchar_fd.c ft_putstr_fd.c \
 		ft_strdel.c ft_strlcat.c ft_strncpy.c ft_strstr.c ft_strtrimchar.c \
 		ft_strrev.c ft_lstaddback.c ft_strtolower.c ft_strtoupper.c ft_pow2.c \
