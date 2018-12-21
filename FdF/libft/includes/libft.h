@@ -6,13 +6,13 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 17:28:37 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/12/12 16:11:27 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/12/21 18:58:13 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define BUFF_SIZE 32
+# define BUFF_SIZE 3
 # define SKIP_BLANK 0
 # define CHAR_STOP '\n'
 # define CONT(x) ((t_file *)((x->content)))->cont

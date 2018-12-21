@@ -6,11 +6,12 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 17:05:00 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/12/07 18:36:43 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/12/21 17:50:26 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
 t_coord	fdf_coordnew(int x, int y, int h)
 {

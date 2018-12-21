@@ -6,24 +6,25 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 16:15:08 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/12/12 15:33:43 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/12/21 19:10:45 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
 void	fdf_file_to_list(int fd, t_list ***alst)
 {
 	t_list	*list;
 	char	*line;
 
-	if (ft_get_next_line(fd, &line) > 0)
+	if (ft_get_next_line(fd, &line) == 1)
 	{
 		list = ft_lstnewstr(line, ft_strlen(line));
 		((char *)((list->content)))[ft_strlen(line)] = '\0';
 		*alst = &list;
 		ft_strdel(&line);
-		while (ft_get_next_line(fd, &line) > 0)
+		while (ft_get_next_line(fd, &line) == 1)
 		{
 			ft_lstaddback(*alst, ft_lstnewstr(line, ft_strlen(line)));
 			ft_strdel(&line);
@@ -53,8 +54,8 @@ char	***get_str_from_file(int fd)
 		list = list->next;
 	}
 	str[i++] = ft_strsplit(list->content, ' ');
-	ft_lstdel(alst, &ft_bzero);
 	ft_strdel((char **)(&(list->content)));
+	free(list);
 	str[i] = NULL;
 	return (str);
 }
@@ -81,7 +82,6 @@ t_list	**convert_str_to_coord(char ***str)
 		free(str[x]);
 		str[x++] = NULL;
 	}
-	free(str);
 	ft_lstaddback(&list, ft_lstnew(NULL, 0));
 	alst = &(list->next);
 	ft_strdel((char **)(&(list->content)));
@@ -95,5 +95,6 @@ t_list	**fdf_parse(int fd)
 
 	str = get_str_from_file(fd);
 	points = convert_str_to_coord(str);
+	free(str);
 	return (points);
 }

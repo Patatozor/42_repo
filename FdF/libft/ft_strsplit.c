@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 16:09:09 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/12/12 15:58:13 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/12/21 17:46:17 by rfumeron          #+#    #+#             */
+/*   Updated: 2018/12/21 18:18:38 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	count_words(char const *s, char c)
 {
-	int	i;
-	int	words;
+	int		i;
+	int		words;
 
 	i = 0;
 	words = 0;
@@ -30,44 +30,38 @@ static int	count_words(char const *s, char c)
 	return (words);
 }
 
-static int	count_chars(char const *s, char c)
+int			get_index_of_c_and_move(char **dst, char const *src, char c)
 {
-	int	i;
+	int		i;
 
-	i = 0;
-	while (*s && *s != c)
-	{
-		i++;
-		s++;
-	}
-	return (i);
+	i = ft_strlenuntilc(src, c);
+	if (!(*dst = malloc(sizeof(char) * (i + 1))))
+		return (0);
+	if ((*dst = ft_strncpy(*dst, src, i)))
+		return (i);
+	return (0);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
 	char	**tab;
 	char	*str;
-	int		chars;
+	char	*temp;
 	int		words;
+	int		i;
 
-	if (s == NULL)
+	i = 0;
+	if (s == NULL || ((words = count_words(s, c)) == 0) ||
+				!(tab = malloc(sizeof(char *) * (words + 1))))
 		return (NULL);
-	words = count_words(s, c);
-	if (!(tab = malloc(sizeof(char *) * (words + 1))))
-		return (NULL);
-	str = ft_strrev(ft_strtrimchar(s, c));
-	tab[words] = NULL;
-	chars = count_chars(str, c);
-	while (words--)
+	str = ft_strtrimchar(s, c);
+	temp = str;
+	while (i < words)
 	{
-		chars = count_chars(str, c);
-		if (!(tab[words] = malloc(sizeof(char) * (chars + 1))))
-			return (NULL);
-		tab[words][chars] = '\0';
-		while (chars--)
-			tab[words][chars] = *str++;
-		while (*str && *str == c)
-			str++;
+		str += get_index_of_c_and_move(&(tab[i]), str, c) + 1;
+		i++;
 	}
+	tab[i] = NULL;
+	free(temp);
 	return (tab);
 }

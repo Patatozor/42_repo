@@ -6,7 +6,7 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 16:15:56 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/12/12 15:33:55 by rfumeron         ###   ########.fr       */
+/*   Updated: 2018/12/21 19:07:25 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ int	main(int ac, char **av)
 	while (p->next)
 	{
 		c = ((t_coord *)((p->content)));
-		printf("x: %d y: %d h: %d \n", c->x, c->y, c->h);
+		ft_putstr("x: ");
+		ft_putnbr(c->x);
+		ft_putstr("  y: ");
+		ft_putnbr(c->y);
+		ft_putstr("  h: ");
+		ft_putnbr(c->h);
+		ft_putchar('\n');
 		p = p->next;
 	}
 	while (1 == 1)
