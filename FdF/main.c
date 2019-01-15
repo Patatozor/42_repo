@@ -6,41 +6,55 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 16:15:56 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/12/21 19:07:25 by rfumeron         ###   ########.fr       */
+/*   Updated: 2019/01/15 12:07:40 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
+
+int	check_file_name(char *s)
+{
+	while(*s)
+		s++;
+	if (ft_strequ(s - 4, ".fdf"))
+		return (1);
+	else
+		return (0);
+}
 
 int	main(int ac, char **av)
 {
 	int		fd;
-	t_list	**points;
-	t_list	*p;
-	t_coord	*c;
+	char	***points;
+	int		x;
+	int		y;
 
-	if (ac != 2)
+	if (ac != 2 || !check_file_name(av[1]))
 	{
-		ft_putendl("no map given to fdf");
+		ft_putendl("incorrect or no map given to fdf");
 		return (-1);
 	}
 	fd = open(av[1], O_RDONLY);
-	points = fdf_parse(fd);
-	p = *points;
-	while (p->next)
+	if (!(points = fdf_parse(fd)))
 	{
-		c = ((t_coord *)((p->content)));
-		ft_putstr("x: ");
-		ft_putnbr(c->x);
-		ft_putstr("  y: ");
-		ft_putnbr(c->y);
-		ft_putstr("  h: ");
-		ft_putnbr(c->h);
-		ft_putchar('\n');
-		p = p->next;
+		ft_putendl("incorrect map characters");
+		return (-1);
 	}
-	while (1 == 1)
-		;
+	draw(points);
+	x = 0;
+	while (points[x])
+	{
+		y = 0;
+		while (points[x][y])
+		{
+			ft_putstr("x: :");
+			ft_putnbr((float)x * 82);
+			ft_putstr("  y: ");
+			ft_putnbr((float)y * 82);
+			ft_putstr("  z: ");
+			ft_putnbr_endl((float)(ft_atoi(points[x][y++])) * 82);
+		}
+		x++;
+	}
 	return (0);
 }

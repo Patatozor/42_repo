@@ -6,23 +6,22 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 13:48:46 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/12/21 17:48:30 by rfumeron         ###   ########.fr       */
+/*   Updated: 2019/01/15 11:59:55 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+# define WIDTH 1000
+# define HEIGHT 1000
+# define V2S2 0.7071f
+# define V2S3 0.4714f
+# define USV6 0.4082f
+# define SPACING 10
 # include "../libft/includes/libft.h"
 # include "mlx.h"
 # include <math.h>
 
-typedef	struct	s_coord
-{
-	int			x;
-	int			y;
-	int			h;
-}				t_coord;
-
-t_list			**fdf_parse(int fd);
-t_coord			fdf_coordnew(int x, int y, int h);
+char				***fdf_parse(int fd);
+void				draw(char ***str);
 #endif

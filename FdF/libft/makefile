@@ -6,7 +6,7 @@
 #    By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/17 16:02:35 by rfumeron          #+#    #+#              #
-#    Updated: 2018/12/21 17:46:32 by rfumeron         ###   ########.fr        #
+#    Updated: 2019/01/15 10:22:58 by rfumeron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC	:=	ft_atoi.c ft_isprint.c ft_lstmap.c ft_memcpy.c ft_putendl.c \
 		ft_strdel.c ft_strlcat.c ft_strncpy.c ft_strstr.c ft_strtrimchar.c \
 		ft_strrev.c ft_lstaddback.c ft_strtolower.c ft_strtoupper.c ft_pow2.c \
 		ft_strcpyuntilc.c ft_strlenuntilc.c ft_get_next_line.c \
-		ft_putnbr_endl.c ft_lstnewstr.c ft_lstlen.c
+		ft_putnbr_endl.c ft_lstnewstr.c ft_lstlen.c ft_isnumber.c
 OBJ		:=	$(SRC:.c=.o)
 # Rules :
 all: $(NAME)
