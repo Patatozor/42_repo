@@ -6,12 +6,11 @@
 /*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 16:15:08 by rfumeron          #+#    #+#             */
-/*   Updated: 2018/12/21 19:10:45 by rfumeron         ###   ########.fr       */
+/*   Updated: 2019/01/15 12:07:38 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 void	fdf_file_to_list(int fd, t_list ***alst)
 {
@@ -60,41 +59,34 @@ char	***get_str_from_file(int fd)
 	return (str);
 }
 
-t_list	**convert_str_to_coord(char ***str)
+int		check_points(char ***str)
 {
-	t_list	*list;
-	t_list	**alst;
-	t_coord	p;
-	int		x;
-	int		y;
+	int			x;
+	int			y;
 
 	x = 0;
-	list = ft_lstnew(NULL, 0);
 	while (str[x])
 	{
 		y = 0;
 		while (str[x][y])
 		{
-			p = fdf_coordnew(x, y, ft_atoi(str[x][y]));
-			ft_lstaddback(&list, ft_lstnew(&p, sizeof(t_coord)));
-			free((str[x][y++]));
+			if (ft_isnumber(str[x][y]))
+				y++;
+			else
+				return (0);
 		}
-		free(str[x]);
-		str[x++] = NULL;
+		x++;
 	}
-	ft_lstaddback(&list, ft_lstnew(NULL, 0));
-	alst = &(list->next);
-	ft_strdel((char **)(&(list->content)));
-	return (alst);
+	return (1);
 }
 
-t_list	**fdf_parse(int fd)
+char	***fdf_parse(int fd)
 {
-	t_list		**points;
 	char		***str;
 
 	str = get_str_from_file(fd);
-	points = convert_str_to_coord(str);
-	free(str);
-	return (points);
+	if (check_points(str))
+		return (str);
+	else
+		return (NULL);
 }
