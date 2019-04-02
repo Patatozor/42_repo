@@ -1,7 +1,8 @@
 #!/bin/sh
 apt update
 apt upgrade -y
-apt-get install openssh-server -y
-apt-get install sudo -y
-apt-get install postfix -y
-apt-get install git -y
+apt install openssh-server -y
+apt install sudo -y
+apt install postfix -y
+apt install git -y
+apt install apache2
