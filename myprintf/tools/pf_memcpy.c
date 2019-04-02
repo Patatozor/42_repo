@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pt_memalloc.c                                      :+:      :+:    :+:   */
+/*   pf_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 23:48:59 by jochang           #+#    #+#             */
-/*   Updated: 2019/04/02 13:52:44 by rfumeron         ###   ########.fr       */
+/*   Created: 2019/04/02 13:54:45 by rfumeron          #+#    #+#             */
+/*   Updated: 2019/04/02 13:56:52 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-void	*pt_memalloc(size_t size)
+void	*pf_memset(void *dst, const void *src, size_t n)
 {
-	void	*temp;
+	unsigned char	*s1;
+	unsigned char	*s2;
 
-	temp = (void*)malloc(size);
-	NULL_CHECK(!temp);
-	pt_bzero(temp, size);
-	return (temp);
+	if (n <= 0 || dst == src)
+		return (dst);
+	s1 = (unsigned char *)dst;
+	s1 = (unsigned char *)src;
+	while (--n)
+		*s1++ = *s2++;
+	*s1 = *s2;
+	return (dst);
 }

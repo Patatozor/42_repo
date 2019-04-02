@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pt_memalloc.c                                      :+:      :+:    :+:   */
+/*   pf_itoo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 23:48:59 by jochang           #+#    #+#             */
-/*   Updated: 2019/04/02 13:52:44 by rfumeron         ###   ########.fr       */
+/*   Created: 2019/04/02 15:21:06 by rfumeron          #+#    #+#             */
+/*   Updated: 2019/04/02 15:24:25 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-void	*pt_memalloc(size_t size)
+char	*pt_itoo(int n)
 {
-	void	*temp;
+	int		i;
+	char	*s;
+	char	*oct;
 
-	temp = (void*)malloc(size);
-	NULL_CHECK(!temp);
-	pt_bzero(temp, size);
-	return (temp);
+	if (!(s = (char *)pf_strnew(12)))
+		return (NULL);
+	oct = "01234567";
+	i = (n == 0 ? 1 : 0);
+	if (n == 0)
+		s[0] = '0';
+	while (n)
+	{
+		s[i] = oct[n & 7];
+		n >>= 3;
+		i++;
+	}
+	s[i] = '\0';
+	pf_strrev(s);
+	return (s);
 }

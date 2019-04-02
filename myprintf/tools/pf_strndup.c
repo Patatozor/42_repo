@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pt_memalloc.c                                      :+:      :+:    :+:   */
+/*   pf_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 23:48:59 by jochang           #+#    #+#             */
-/*   Updated: 2019/04/02 13:52:44 by rfumeron         ###   ########.fr       */
+/*   Created: 2019/04/02 13:57:16 by rfumeron          #+#    #+#             */
+/*   Updated: 2019/04/02 15:20:40 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-void	*pt_memalloc(size_t size)
+char	*pf_strndup(const char *src, size_t len)
 {
-	void	*temp;
+	char *str;
 
-	temp = (void*)malloc(size);
-	NULL_CHECK(!temp);
-	pt_bzero(temp, size);
-	return (temp);
+	if (!(str = (char *)malloc(len + 1)))
+		return (NULL);
+	str = pf_strncpy(str, src, len);
+	str[len] = '\0';
+	return (str);
 }

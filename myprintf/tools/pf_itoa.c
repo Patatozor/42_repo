@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pt_itoa.c                                          :+:      :+:    :+:   */
+/*   pf_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/23 23:11:46 by jochang           #+#    #+#             */
-/*   Updated: 2019/04/02 15:26:37 by rfumeron         ###   ########.fr       */
+/*   Created: 2019/04/02 15:16:09 by rfumeron          #+#    #+#             */
+/*   Updated: 2019/04/02 15:20:11 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-char	*pt_itoa(int64_t n)
+char	*pf_itoa(int n)
 {
 	char	*str;
 	int		sign;
 	int		len;
 
 	sign = (n >= 0 ? 1 : -1);
-	len = pt_placevalue(n) + (sign >= 0 ? 0 : 1);
-	str = (char*)pt_strnew(len + 1);
-	NULL_CHECK(!str);
-	IF_TRUE(n == 0, str[0] = '0');
+	len = pf_placevalue(n) + (sign >= 0 ? 0 : 1);
+	if (!(str = (char *)pf_strnew(len + 1)))
+		return (NULL);
+	if (n == 0)
+		str[0] = '0';
 	len--;
 	while (n)
 	{
-		str[len] = (n % 10) * sign + '0';
+		str[len] = n % 10 * sign + '0';
 		n /= 10;
 		len--;
 	}
-	IF_TRUE(sign == -1, str[len] = '-');
+	if (sign == -1)
+		str[len] = '-';
 	return (str);
 }

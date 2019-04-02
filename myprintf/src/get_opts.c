@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_opts.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/10 19:50:44 by jochang           #+#    #+#             */
-/*   Updated: 2019/04/02 16:46:46 by rfumeron         ###   ########.fr       */
+/*   Created: 2019/04/02 15:34:05 by rfumeron          #+#    #+#             */
+/*   Updated: 2019/04/02 17:13:23 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ static t_flags	get_flags(char **str)
 	return (flags);
 }
 
-static uint32_t	get_width(char **str, va_list ap)
+static int		get_width(char **str, va_list ap)
 {
-	uint32_t	w;
+	int	w;
 
 	w = 0;
-	if (IS_DIGIT(**str))
+	if (**str >= '0' && **str <= '9')
 	{
-		w = pt_atoi(*str);
-		while (IS_DIGIT(**str))
+		w = pf_atoi(*str);
+		while (**str >= '0' && **str <= '9')
 			(*str)++;
 	}
 	else if (**str == '*')
@@ -59,19 +59,19 @@ static uint32_t	get_width(char **str, va_list ap)
 	return (w);
 }
 
-static int32_t	get_precision(char **str, va_list ap)
+static int		get_precision(char **str, va_list ap)
 {
-	int32_t	p;
+	int	p;
 
 	p = -1;
 	if (**str == '.')
 	{
 		p = 0;
 		(*str)++;
-		if (IS_DIGIT(**str))
+		if (**str >= '0' && **str <= '9')
 		{
-			p = pt_atoi(*str);
-			while (IS_DIGIT(**str))
+			p = pf_atoi(*str);
+			while (**str >= '0' && **str <= '9')
 				(*str)++;
 		}
 		else if (**str == '*')
@@ -83,25 +83,21 @@ static int32_t	get_precision(char **str, va_list ap)
 	return (p);
 }
 
-static uint32_t	get_length(char **str)
+static int		get_length(char **str)
 {
-	uint32_t	l;
+	int	l;
 
 	l = 0;
 	if (**str == 'h' && *(*str + 1) != 'h')
-		l = 104;
+		l = 10;
 	else if (**str == 'h' && *(*str + 1) == 'h')
-		l = 208;
+		l = 20;
 	else if (**str == 'l' && *(*str + 1) != 'l')
-		l = 108;
+		l = 11;
 	else if (**str == 'l' && *(*str + 1) == 'l')
-		l = 216;
-	else if (**str == 'j')
-		l = 106;
-	else if (**str == 'z')
-		l = 122;
+		l = 22;
 	if (l > 0)
-		(*str) += (l >= 130 ? 2 : 1);
+		(*str) += (l >= 12 ? 2 : 1);
 	return (l);
 }
 

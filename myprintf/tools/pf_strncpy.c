@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pt_memalloc.c                                      :+:      :+:    :+:   */
+/*   pf_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 23:48:59 by jochang           #+#    #+#             */
-/*   Updated: 2019/04/02 13:52:44 by rfumeron         ###   ########.fr       */
+/*   Created: 2019/04/02 13:58:56 by rfumeron          #+#    #+#             */
+/*   Updated: 2019/04/02 14:00:32 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-void	*pt_memalloc(size_t size)
+char	*pf_strncpy(char *dst, const char *src, size_t len)
 {
-	void	*temp;
+	size_t	i;
 
-	temp = (void*)malloc(size);
-	NULL_CHECK(!temp);
-	pt_bzero(temp, size);
-	return (temp);
+	i = 0;
+	while (i < len && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	while (i < len)
+	{
+		dst[i] = '\0';
+		i++;
+	}
+	return (dst);
 }

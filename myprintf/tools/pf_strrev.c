@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pt_memalloc.c                                      :+:      :+:    :+:   */
+/*   pf_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 23:48:59 by jochang           #+#    #+#             */
-/*   Updated: 2019/04/02 13:52:44 by rfumeron         ###   ########.fr       */
+/*   Created: 2019/04/02 15:13:47 by rfumeron          #+#    #+#             */
+/*   Updated: 2019/04/02 15:20:28 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-void	*pt_memalloc(size_t size)
+char	*pf_strrev(char *str)
 {
-	void	*temp;
+	int		i;
+	int		j;
+	char	temp;
 
-	temp = (void*)malloc(size);
-	NULL_CHECK(!temp);
-	pt_bzero(temp, size);
-	return (temp);
+	i = -1;
+	k = pt_strlen(str);
+	while (++i < --k)
+	{
+		temp = str[k];
+		str[k] = str[i];
+		str[i] = temp;
+	}
+	return (str);
 }

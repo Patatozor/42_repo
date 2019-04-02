@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pt_itoh.c                                          :+:      :+:    :+:   */
+/*   pf_itoh.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/16 15:05:25 by jochang           #+#    #+#             */
-/*   Updated: 2019/04/02 15:31:59 by rfumeron         ###   ########.fr       */
+/*   Created: 2019/04/02 15:28:20 by rfumeron          #+#    #+#             */
+/*   Updated: 2019/04/02 17:08:19 by rfumeron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-char	*pt_itoh(uint64_t n, int caps)
+char	*pf_itoh(int n, int caps)
 {
 	int		i;
 	char	*s;
 	char	*hex;
 
-	NULL_CHECK(!(s = (char*)pt_strnew(8)));
+	if (!(s = (char*)pt_strnew(8)))
+		return (NULL);
 	hex = (caps ? "0123456789ABCDEF" : "0123456789abcdef");
 	i = (n == 0 ? 1 : 0);
 	if (n == 0)
@@ -30,6 +31,6 @@ char	*pt_itoh(uint64_t n, int caps)
 		i++;
 	}
 	s[i] = '\0';
-	pt_strrev(s);
+	pf_strrev(s);
 	return (s);
 }
