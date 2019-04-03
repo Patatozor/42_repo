@@ -12,33 +12,21 @@
 
 #include "../inc/ft_printf.h"
 
-static void		error_check(t_opts opts)
-{
-	(void)opts;
-}
-
-static uint64_t	get_num(uint32_t length, va_list ap)
+static uint64_t	get_num(int length, va_list ap)
 {
 	uint64_t	n;
 
-	n = 0;
-	if (length == 0 || length == 104 || length == 208 || length == 108)
-		n = va_arg(ap, uint32_t);
-	else if (length == 216)
-		n = va_arg(ap, uint64_t);
-	else if (length == 106)
-		n = va_arg(ap, uintmax_t);
-	else if (length == 122)
-		n = va_arg(ap, size_t);
+	n = va_arg(ap, uint32_t);
 	return (n);
 }
 
-static char		*pt_itob(uint64_t n)
+static char		*pt_itob(uint32_t n)
 {
 	int		i;
 	char	*s;
 
-	NULL_CHECK(!(s = (char*)pt_strnew(32)));
+	if (!(s = (char*)pf_strnew(32)))
+		return (NULL);
 	i = (n == 0 ? 1 : 0);
 	if (n == 0)
 		s[0] = '0';
@@ -48,7 +36,7 @@ static char		*pt_itob(uint64_t n)
 		n >>= 1;
 		i++;
 	}
-	pt_strrev(s);
+	pf_strrev(s);
 	return (s);
 }
 
@@ -56,12 +44,13 @@ static char		*padding(char *s, int len, t_opts opts)
 {
 	char	*str;
 
-	NULL_CHECK(!(str = (char*)pt_strnew(opts.width)));
-	pt_memset(str, ' ', opts.width);
+	if (!(str = (char*)pf_strnew(opts.width)))
+		return (NULL);
+	pf_memset(str, ' ', opts.width);
 	if (opts.flags.minus)
-		pt_strncpy(str, s, len);
+		pf_strncpy(str, s, len);
 	else
-		pt_strncpy(&str[opts.width - len], s, len);
+		pf_strncpy(&str[opts.width - len], s, len);
 	free(s);
 	return (str);
 }
@@ -74,12 +63,12 @@ int				d_b(t_opts opts, va_list ap)
 
 	error_check(opts);
 	n = get_num(opts.length, ap);
-	s = pt_itob(n);
-	len = pt_strlen(s);
-	if (opts.width > (uint32_t)len)
+	s = pf_itob(n);
+	len = pf_strlen(s);
+	if (opts.width > len)
 		s = padding(s, len, opts);
-	pt_putstr(s);
-	len = pt_strlen(s);
+	pf_putstr(s);
+	len = pf_strlen(s);
 	free(s);
 	return (len);
 }

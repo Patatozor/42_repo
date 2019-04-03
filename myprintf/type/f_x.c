@@ -1,5 +1,10 @@
 #include "../inc/ft_printf.h"
 
+static void		error_check(t_opts opts)
+{
+	(void)opts;
+}
+
 static uint64_t	get_num(int length, va_list ap)
 {
 	uint64_t	n;
@@ -18,10 +23,11 @@ static char		*pound(char *s)
 	char	*str;
 
 	len = pf_strlen(s);
-	if (!(str = (char*)pt_strnew(len + 1)))
+	if (!(str = (char*)pf_strnew(len + 2)))
 		return (NULL);
 	str[0] = '0';
-	pf_strncpy(&str[1], s, len);
+	str[1] = 'x';
+	pf_strncpy(&str[2], s, len);
 	free(s);
 	return (str);
 }
@@ -41,20 +47,21 @@ static char		*padding(char *s, int len, t_opts opts)
 	return (str);
 }
 
-int				f_o(t_opts opts, va_list ap)
+int				f_x(t_opts opts, va_list ap)
 {
 	uint64_t	n;
 	char		*s;
 	int			len;
 
+	error_check(opts);
 	n = get_num(opts.length, ap);
-	s = pt_itoo(n);
+	s = pf_itoh(n, 0);
 	if (opts.flags.pound && n)
 		s = pound(s);
-	len = pt_strlen(s);
+	len = pf_strlen(s);
 	if (opts.width > len)
 		s = padding(s, len, opts);
-	pt_putstr(s);
+	pf_putstr(s);
 	len = pf_strlen(s);
 	free(s);
 	return (len);

@@ -2,11 +2,6 @@
 
 static void		error_check(t_opts opts)
 {
-	if (opts.flags.pound != 0)
-	{
-		pf_putstr("error: undefined behavior\n");
-		exit(1);
-	}
 	if (opts.length != 10 && opts.length != 20 &&
 		opts.length != 11 && opts.length != 22 &&
 		opts.length != 0)

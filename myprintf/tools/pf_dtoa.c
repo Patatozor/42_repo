@@ -14,7 +14,7 @@ char	*pf_dtoa(long double n, int precision)
 		len = (n <= 0 ? 3 : 2);
 	while (tmp && ++len)
 		tmp /= 10;
-	if (!(s = pf_malloc(len + 1)))
+	if (!(s = pf_strnew(len + 1)))
 		return (NULL);
 	s[--len] = '\0';
 	if (tmp <= 0)

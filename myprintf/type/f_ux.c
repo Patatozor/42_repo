@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   d_x.c                                              :+:      :+:    :+:   */
+/*   d_ux.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 21:06:08 by jochang           #+#    #+#             */
-/*   Updated: 2018/08/22 18:52:28 by jochang          ###   ########.fr       */
+/*   Updated: 2018/08/22 18:51:54 by jochang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,15 @@ static void		error_check(t_opts opts)
 	(void)opts;
 }
 
-static uint64_t	get_num(uint32_t length, va_list ap)
+static uint64_t	get_num(int length, va_list ap)
 {
 	uint64_t	n;
 
 	n = 0;
-	if (length == 0 || length == 104 || length == 208 || length == 108)
-		n = va_arg(ap, uint32_t);
-	else if (length == 216)
+	if (length == 0 || length == 10 || length == 20 || length == 11)
+		n = va_arg(ap, unsigned int);
+	else if (length == 22)
 		n = va_arg(ap, uint64_t);
-	else if (length == 106)
-		n = va_arg(ap, uintmax_t);
-	else if (length == 122)
-		n = va_arg(ap, size_t);
 	return (n);
 }
 
@@ -38,11 +34,12 @@ static char		*pound(char *s)
 	int		len;
 	char	*str;
 
-	len = pt_strlen(s);
-	NULL_CHECK(!(str = (char*)pt_strnew(len + 2)));
+	len = pf_strlen(s);
+	if (!(str = (char*)pt_strnew(len + 2)))
+		return (NULL);
 	str[0] = '0';
-	str[1] = 'x';
-	pt_strncpy(&str[2], s, len);
+	str[1] = 'X';
+	pf_strncpy(&str[2], s, len);
 	free(s);
 	return (str);
 }
@@ -51,17 +48,18 @@ static char		*padding(char *s, int len, t_opts opts)
 {
 	char	*str;
 
-	NULL_CHECK(!(str = (char*)pt_strnew(opts.width)));
-	pt_memset(str, ' ', opts.width);
+	if (!(str = (char*)pt_strnew(opts.width)))
+		return (NULL);
+	pf_memset(str, ' ', opts.width);
 	if (opts.flags.minus)
-		pt_strncpy(str, s, len);
+		pf_strncpy(str, s, len);
 	else
-		pt_strncpy(&str[opts.width - len], s, len);
+		pf_strncpy(&str[opts.width - len], s, len);
 	free(s);
 	return (str);
 }
 
-int				d_x(t_opts opts, va_list ap)
+int				f_ux(t_opts opts, va_list ap)
 {
 	uint64_t	n;
 	char		*s;
@@ -69,14 +67,14 @@ int				d_x(t_opts opts, va_list ap)
 
 	error_check(opts);
 	n = get_num(opts.length, ap);
-	s = pt_itoh(n, 0);
+	s = pf_itoh(n, 1);
 	if (opts.flags.pound && n)
 		s = pound(s);
-	len = pt_strlen(s);
+	len = pf_strlen(s);
 	if (opts.width > (uint32_t)len)
 		s = padding(s, len, opts);
-	pt_putstr(s);
-	len = pt_strlen(s);
+	pf_putstr(s);
+	len = pf_strlen(s);
 	free(s);
 	return (len);
 }
