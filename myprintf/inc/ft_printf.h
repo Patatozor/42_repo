@@ -16,8 +16,9 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include "tools.h"
+# include "macro.h"
 
-# define SPEC_COUNT 12
+# define SPEC_COUNT 14
 
 typedef struct		s_flag
 {
@@ -37,7 +38,9 @@ typedef struct		s_opts
 }					t_opts;
 
 int					f_c(t_opts opts, va_list ap);
+int					f_uc(t_opts opts, va_list ap);
 int					f_s(t_opts opts, va_list ap);
+int					f_us(t_opts opts, va_list ap);
 int					f_p(t_opts opts, va_list ap);
 int					f_d(t_opts opts, va_list ap);
 int					f_o(t_opts opts, va_list ap);
@@ -57,7 +60,9 @@ typedef struct		s_dispatch
 
 const t_dispatch	g_select[] = {
 	{'c', &f_c},
+	{'C', &f_uc},
 	{'s', &f_s},
+	{'S', &f_us},
 	{'p', &f_p},
 	{'d', &f_d},
 	{'i', &f_d},

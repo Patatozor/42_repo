@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_placevalue.c                                    :+:      :+:    :+:   */
+/*   d_percent.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfumeron <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jochang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/02 15:26:50 by rfumeron          #+#    #+#             */
-/*   Updated: 2019/04/02 15:27:43 by rfumeron         ###   ########.fr       */
+/*   Created: 2018/08/22 16:47:34 by jochang           #+#    #+#             */
+/*   Updated: 2018/08/22 16:56:47 by jochang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-int		pf_placevalue(int64_t n)
+int		f_percent(t_opts opts, va_list ap)
 {
-	int	count;
-
-	count = 0;
-	if (!n)
-		return (1);
-	while (n)
-	{
-		n /= 10;
-		count++;
-	}
-	return (count);
+	(void)opts;
+	(void)ap;
+	pf_putchar('%');
+	return (1);
 }

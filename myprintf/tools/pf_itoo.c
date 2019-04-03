@@ -12,7 +12,7 @@
 
 #include "../inc/ft_printf.h"
 
-char	*pt_itoo(int n)
+char	*pt_itoo(uint64_t n)
 {
 	int		i;
 	char	*s;

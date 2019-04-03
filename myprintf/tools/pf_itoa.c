@@ -12,7 +12,7 @@
 
 #include "../inc/ft_printf.h"
 
-char	*pf_itoa(int n)
+char	*pf_itoa(int64_t n)
 {
 	char	*str;
 	int		sign;
